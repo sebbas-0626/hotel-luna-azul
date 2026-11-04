@@ -1,0 +1,15 @@
+{
+    "name": "hotel-luna-azul/backend",
+    "description": "Sistema de gestion de reservas Hotel Luna Azul",
+    "type": "project",
+    "require": {
+        "php": ">=8.1",
+        "illuminate/database": "^10.0",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}

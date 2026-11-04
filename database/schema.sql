@@ -1,0 +1,51 @@
+CREATE TABLE IF NOT EXISTS usuarios (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) DEFAULT 'admin',
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS huespedes (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre_completo VARCHAR(255) NOT NULL,
+    tipo_documento VARCHAR(50) NOT NULL,
+    numero_documento VARCHAR(100) NOT NULL UNIQUE,
+    direccion VARCHAR(255) NULL,
+    telefono VARCHAR(50) NULL,
+    celular VARCHAR(50) NULL,
+    edad INT NULL,
+    email VARCHAR(255) NULL,
+    contacto_emergencia VARCHAR(255) NULL,
+    parentesco_contacto VARCHAR(100) NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS habitaciones (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    numero VARCHAR(50) NOT NULL UNIQUE,
+    tipo VARCHAR(50) NOT NULL,
+    capacidad INT NOT NULL DEFAULT 1,
+    precio DECIMAL(10,2) NOT NULL DEFAULT 0,
+    estado VARCHAR(50) NOT NULL DEFAULT 'disponible',
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS reservas (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    huesped_id BIGINT UNSIGNED NOT NULL,
+    habitacion_id BIGINT UNSIGNED NULL,
+    tipo_habitacion VARCHAR(50) NULL,
+    fecha_ingreso DATE NOT NULL,
+    fecha_salida DATE NOT NULL,
+    num_huespedes INT NOT NULL DEFAULT 1,
+    estado VARCHAR(50) NOT NULL DEFAULT 'confirmada',
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    FOREIGN KEY (huesped_id) REFERENCES huespedes(id) ON DELETE CASCADE,
+    FOREIGN KEY (habitacion_id) REFERENCES habitaciones(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
